@@ -1,0 +1,40 @@
+version: '3.8'
+networks:
+  mynetwork:
+    driver: bridge
+
+services:
+  go-app:
+    networks:
+      - mynetwork
+    build:
+      context: ./golang/
+      dockerfile: Dockerfile
+    container_name: chatapp_golang
+    depends_on:
+      - postgres
+    volumes:
+      - ./golang:/app
+    ports:
+      - "8080:8080"
+
+  react-app:
+    networks:
+      - mynetwork
+
+  postgres:
+    networks:
+      - mynetwork
+    image: postgres:15.0
+    container_name: chatapp_database
+    environment:
+      POSTGRES_DB: chatapp
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 393406
+    ports:
+      - "5435:5432"
+    volumes:
+      - postgres-db:/var/lib/postgresql/data
+
+volumes:
+  postgres-db:
