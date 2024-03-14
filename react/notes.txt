@@ -1,0 +1,3 @@
+https://github.com/scalablescripts/react-chat/tree/main/public
+
+İleride front end kısmı için gerekli olan dökümantasyon.
